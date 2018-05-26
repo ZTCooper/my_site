@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'pagedown',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +69,10 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'blog.blog_context.blog_info',
             ],
+
+            'libraries':{
+                'mytags': 'templatetags.mytags',
+            }
         },
     },
 ]
