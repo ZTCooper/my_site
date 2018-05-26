@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+    <article class="blog-main">
+      <h3 class="am-article-title blog-title">
+          <a href="#">{{ article.title }}</a>
+      </h3>
+      <h4 class="am-article-meta blog-meta">by <a href="">ZT Cooper</a> posted on {{ article.create_time }} <a href="#">字体</a></br>
+          <a href="{% url 'blog:main_page'%}?c={{ category.id }}">{{ article.category }}</a>
+      </h4>
+      <div class="am-g blog-content">
+        <div class="am-u-lg-7">
+          {{ article.content }}
+        </div>
+      </div>
+    </article>
+{% endblock %}
