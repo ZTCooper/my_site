@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^(?P<blogpost_id>\d+)$', blog_page, name='blog_page'),
     url(r'^edit/(?P<blogpost_id>\d+)$', edit_page, name='edit_page'),
     url(r'^edit/post$', post_blog, name='post_blog'),
+    url(r'^tags$', blog_tags, name='blog_tags'),
 ]

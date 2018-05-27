@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}ZT的个人博客{% endblock %}
+
+{% block active %}
+	<li class="active"><a href="{% url 'blog:main_page' %}">Home</a></li>
+	<li><a href="archives.html">Archives</a></li>
+	<li><a href="{% url 'blog:blog_tags' %}">Tags</a></li>
+{% endblock %}
+
+
+{% block userinfo %}
+	<article class="post featured">
+		<header class="major">
+			<span class="date">August 01, 1997</span>
+			<h2><a href="#">About Me</a></h2>
+			<p>{{ userinfo.detail }}</p>
+		</header>
+		<a href="#" class="image main"><img src="/static/blog/images/pic01.jpg" alt="" /></a>
+		<ul class="actions">
+			<li><a href="#" class="button big">Contact Me</a></li>
+		</ul>
+	</article>
+{% endblock %}
+
+{% block content %}
+	<!-- Posts -->
+	<section class="posts">
+		{% for article in articles %}
+			<article>
+				<header>
+					<span class="date">{{ article.create_time }}</span>
+					<h2><a href="{% url 'blog:blog_page' article.id %}">{{ article.title }}</a></h2>
+				</header>
+				<a href="#" class="image fit"><img src="/static/blog/images/pic02.jpg" alt="" /></a>
+				<p>{{ article.content }}</p>
+				<ul class="actions">
+					<li><a href="{% url 'blog:blog_page' article.id %}" class="button">Read More</a></li>
+				</ul>
+			</article>
+		{% endfor %}
+	</section>
+
+<!-- Footer -->
+	<footer>
+		<div class="pagination">
+			<!--<a href="#" class="previous">Prev</a>-->
+			{% if articles.has_previous %}
+				<a href="?p={{ articles.previous_page_number }}" class="previous">Previous</a>
+			{% endif %}
+
+			{% for page in pages.page_range %}
+			<!--a href="?p={{ page }}" class="page active">1</a>
+									<span class="extra">&hellip;</span-->
+			<a href="?p={{ page }}" class="page">{{ page }}</a>
+			{% endfor %}
+
+			{% if articles.has_next %}
+				<a href="?p={{ articles.next_page_number }}" class="next">Next</a>
+			{% endif %}
+		</div>
+	</footer>
+{% endblock %}

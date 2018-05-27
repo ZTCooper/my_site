@@ -34,7 +34,7 @@ def main_page(request):
         contacts = paginator.page(1)    # 若不是整数，跳转到第一页
     except EmptyPage:
         contacts = paginator.page(paginator.num_pages)  # 如果超过最后一页，到最后一页
-    return render(request, 'main.html', {'articles': contacts, 'pages': paginator})
+    return render(request, 'home.html', {'articles': contacts, 'pages': paginator})
 
 
 def blog_page(request, blogpost_id):
@@ -59,7 +59,7 @@ def post_blog(request):
         Article.objects.create(title=title, content=content, category_id=1)
         # new_blog.save()
         articles = Article.objects.order_by('-create_time')
-        return render(request, 'main.html', {'articles': articles})
+        return render(request, 'home.html', {'articles': articles})
         # return HttpResponseRedirect('')
     else:
         new_blog = Article.objects.get(id=blogpost_id)
@@ -67,4 +67,8 @@ def post_blog(request):
         new_blog.content = content
         new_blog.save()
         articles = Article.objects.order_by('-create_time')
-        return render(request, 'main.html', {'articles': articles})
+        return render(request, 'home.html', {'articles': articles})
+
+def blog_tags(request):
+    categories = Category.objects.all().order_by('sort_id')
+    return render(request, 'tags.html', {'categories': categories})

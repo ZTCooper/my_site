@@ -1,22 +1,31 @@
 {% extends "base.html" %}
 
 {% block title %}编辑博客{% endblock %}
-		{% block content %}
+
+{% block content %}
 		<form action="{% url 'blog:post_blog' %}" method="post">
 			{% csrf_token %}
 				<input type="hidden" name="blogpost_id" value="{{ article.id | default:'0' }}" />
+				<ul id="title">
 				<lable>文章标题
 					<input type="text" name="title" value="{{ article.title }}" />
 				</lable>
-				<br/><br/>
+				</ul>
+				<br><br>
+				<ul id="content">
 				<lable>文章内容
-					<input name="content" style="width: 400px" value="{{ article.content }}" >
+					<textarea name="content" cols="50" rows="20" style="width: 800px">{{ article.content }}</textarea>
 				</lable>
+				</ul>
 				<br/><br/>
+				<ul id="category">
 				<lable>所属类别
 					<input type="text" name="category" value="{{ article.category }}" >
 				</lable>
+				</ul>
 				<br/><br/>
-			<input type="submit" value="提交">
+				<ul id="commit_btn">
+				<input type="submit"  value="提交">
+				</ul>
 		</form>
-		{% endblock %}
+{% endblock %}
