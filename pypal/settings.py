@@ -50,6 +50,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# 上传文件目录
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR + 'media')
+
 ROOT_URLCONF = 'pypal.urls'
 
 TEMPLATES = [

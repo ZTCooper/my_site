@@ -53,10 +53,10 @@ def edit_page(request, blogpost_id):
 def post_blog(request):
     title = request.POST.get('title', 'TITLE')
     content = request.POST.get('content', 'CONTENT')
-    #category = request.POST.get('category', 'CATEGORY')
+    category = request.POST.get('category', 'CATEGORY')
     blogpost_id = request.POST.get('blogpost_id', '0')
     if blogpost_id == '0':  # 编辑新博客
-        Article.objects.create(title=title, content=content, category_id=1)
+        Article.objects.create(title=title, content=content, category_id=category)
         # new_blog.save()
         articles = Article.objects.order_by('-create_time')
         return render(request, 'home.html', {'articles': articles})

@@ -95,3 +95,14 @@ class SiteInfo(models.Model):
 
     def __str__(self):
         return self.site_name
+
+class BlogImage(models.Model):
+    title = models.CharField(max_length=20, verbose_name='图片标题', default='')
+    path = models.ImageField(verbose_name='图片', upload_to='upload/%Y/%m', default='upload/default.jpg', max_length=100)
+
+    class Meta:
+        verbose_name = '网站相册'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.title

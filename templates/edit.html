@@ -20,7 +20,12 @@
 				<br/><br/>
 				<ul id="category">
 				<lable>所属类别
-					<input type="text" name="category" value="{{ article.category }}" >
+					<select name="category" multiple="multiple"><!--按下Ctrl单击多选-->
+						{% for category in categories %}
+						<option value="{{ forloop.count }}">{{ category }}</option>
+						{% endfor %}
+					</select>
+					<!--input type="text" name="category" value="{{ article.category }}" -->
 				</lable>
 				</ul>
 				<br/><br/>
