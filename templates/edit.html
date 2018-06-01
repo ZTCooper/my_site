@@ -3,9 +3,12 @@
 {% block title %}编辑博客{% endblock %}
 
 {% block content %}
-		<form action="{% url 'blog:post_blog' %}" method="post">
+		<form action="{% url 'blog:edit_page' article.id|default:'0' %}" method="post">
 			{% csrf_token %}
-				<input type="hidden" name="blogpost_id" value="{{ article.id | default:'0' }}" />
+			<p>文章标题：{{ article.title }}<span>{{ error.title }}</span></p>
+			<p>文章内容：{{ article.content }}<span>{{ error.content }}</span></p>
+			<p>文章分类：{{ article.category }}<span>{{ error.category }}</span></p>
+				<!--input type="hidden" name="blogpost_id" value="{{ article.id | default:'0' }}" />
 				<ul id="title">
 				<lable>文章标题
 					<input type="text" name="title" value="{{ article.title }}" />
@@ -19,15 +22,15 @@
 				</ul>
 				<br/><br/>
 				<ul id="category">
-				<lable>所属类别
-					<select name="category" multiple="multiple"><!--按下Ctrl单击多选-->
+					<lable>所属类别
+					<select name="category" multiple="multiple">
 						{% for category in categories %}
-						<option value="{{ forloop.count }}">{{ category }}</option>
+						<option value="{{ category.id }}">{{ category }}</option>
 						{% endfor %}
 					</select>
-					<!--input type="text" name="category" value="{{ article.category }}" -->
+					<!--input type="text" name="category" value="{{ article.category }}" >
 				</lable>
-				</ul>
+				</ul-->
 				<br/><br/>
 				<ul id="commit_btn">
 				<input type="submit"  value="提交">

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from blog.models import *
+from blog.forms import *
 
 
 class CategoryAdmin(admin.ModelAdmin):

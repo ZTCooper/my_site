@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load mytags %}
+
+{% block title %}ZT的个人博客{% endblock %}
+
+{% block content %}
+<main class="col-md-12">
+	{% for article in articles %}
+						<article class="post post-1">
+							<header class="entry-header">
+								<h1 class="entry-title">
+									<a href="{% url 'blog:blog_page' article.id %}">{{ article.title }}</a>
+								</h1>
+								<div class="entry-meta">
+									<span class="post-category"><a href="{% url 'blog:main_page'%}?c={{ article.category.id }}">{{ article.category }}</a></span>
+									<span class="post-date"><a href="#"><time class="entry-date"
+                                                    datetime="2012-11-09T23:15:57+00:00">{{ article.create_time }}</time></a></span>
+									<span class="post-author"><a href="#">{{ article.user }}</a></span>
+									<span class="comments-link"><a href="">4 Comments</a></span>
+								</div>
+							</header>
+							<div class="entry-content clearfix">
+								<p>{{ article.content | slice:":500" | add:"……" }}</p>
+								<div class="read-more cl-effect-14">
+									<a href="{% url 'blog:blog_page' article.id %}" class="more-link">继续阅读 <span class="meta-nav">→</span></a>
+								</div>
+							</div>
+						</article>
+	{% endfor %}
+	<div class="pagination">
+        <ul>
+            {% if articles.has_previous %}
+            <li><a href="?p={{ articles.previous_page_number }}">Previous</a></li>
+            {% endif %}
+
+            {% for page in pages.page_range %}
+            <li><a href="?p={{ page }}">{{ page }}</a></li>
+            {% endfor %}
+
+            {% if articles.has_next %}
+            <li><a href="?p={{ articles.next_page_number }}">Next</a>
+            {% endif %}
+                        <!--li class="current"><a href="">6</a></li-->
+        </ul>
+    </div>
+</main>
+{% endblock %}
