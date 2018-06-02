@@ -1,5 +1,5 @@
 .idea
-static/
 */__pycache__
 */migrations
 media/*
+*/img

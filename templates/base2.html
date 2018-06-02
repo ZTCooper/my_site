@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load mytags %}
+
+{% block sidebar %}
+            <aside class="col-md-4">
+                <div class="widget widget-recent-posts">
+                    <h3 class="widget-title"><a href="{% url 'blog:blah_list' %}">碎碎念</a></h3>
+                    <ul>
+                        {% for blahblah in blahblahs %}
+                        <li>
+                            <a href="{% url 'blog:blah_detail' blahblah.id %}"><span>{{ blahblah.create_time | date:"m-d H:i:s" }}</span>{{ blahblah.content | striptags | truncatechars:16 }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="widget widget-recent-posts">
+					<h3 class="widget-title"><a href="{% url 'blog:blog_list' %}">最新文章</a></h3>
+                    <ul>
+                        {% for art in arts %}
+                        <li>
+                            <a href="{% url 'blog:blog_page' art.id %}">{{ art.title }}<span class="post-count">
+                            ({{ art.create_time | date:"Y-m-d" }})</span></a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="widget widget-archives">
+                    <h3 class="widget-title">归档</h3>
+                    <ul>
+                        {% for date in dates %}
+                        <li>
+                            <a href="{% url 'blog:blog_monthly' date.year date.month %}">{{ date | date:"Y-m" }}<span class="post-count">
+                            ({{ date|monthly_count }})</span></a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="widget widget-category">
+                    <h3 class="widget-title">分类</h3>
+                    <ul>
+                        {% for category in categories %}
+                        <li>
+                            <a href="{% url 'blog:blog_list'%}?c={{ category.id }}">{{ category.title }}<span class="post-count">
+                            ({{ category|category_count }})</span></a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="widget widget-tag-cloud">
+                    <h3 class="widget-title">博客标签云</h3>
+                    <ul>
+                        {% for blog_tag in blog_tags %}
+                        <li>
+                            <a href="{% url 'blog:blog_list' %}?t={{ blog_tag }}">{{ blog_tag }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+				<div class="widget widget-tag-cloud">
+                    <h3 class="widget-title">碎碎念标签云</h3>
+                    <ul>
+                        {% for blah_tag in blah_tags %}
+                        <li>
+                            <a href="{% url 'blog:blah_list' %}?t={{ blah_tag }}">{{ blah_tag }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="rss">
+                    <a href=""><span class="ion-social-rss-outline"></span> RSS 订阅</a>
+                </div>
+		</aside>
+{% endblock %}
+

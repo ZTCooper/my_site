@@ -1,0 +1,93 @@
+{% extends "base2.html" %}
+{% load mytags %}
+
+{% block title %}{{ blah.content|striptags|truncatechars:20 }}{% endblock %}
+
+{% block search %}
+<a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>
+<div id="search-form" class="search-form">
+	<form role="search" method="get" id="searchform" action="{% url 'blog:blah_search'%}">
+		{% csrf_token %}
+		<input type="search" placeholder="搜索碎碎念" name="s" required>
+		<button type="submit"><span class="ion-ios-search-strong"></span></button>
+	</form>
+</div>
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/highlight/styles/monokai-sublime.css">
+<script src="/static/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<main class="col-md-8">
+        <article class="post post-1">
+            <header class="entry-header">
+                <div class="entry-meta">
+                    <span class="post-category"><a>{{ blah.tag }}</a></span>
+                    <span class="post-date"><a href="#"><time class="entry-date"
+                                                    datetime="2012-11-09T23:15:57+00:00">{{ blah.create_time }}</time></a></span>
+                    <span class="post-author"><a href="#">{{ blah.author }}</a></span>
+                    <span class="comments-link"><a href="#">4 评论</a></span>
+                    <span class="views-count"><a href="#">{{ blah.get_read_num }}阅读</a></span>
+                </div>
+            </header>
+            <div class="entry-content clearfix">
+                <p>{{ blah.content | safe }}</p>
+            </div>
+        </article>
+        <br><br>
+            <div class="blog-more">
+                <p>
+                    {% if previous %}
+                    <div class="read-more cl-effect-14">
+                        <a href="{% url 'blog:blah_detail' previous.pk %}" class="more-link"><span class="meta-nav">←</span>PREVIOUS</a>
+                    </div>
+                {% endif %}
+                </p>
+                <p>
+                    {% if next %}
+                    <div class="read-more cl-effect-14">
+                        <a href="{% url 'blog:blah_detail' next.pk %}" class="more-link">NEXT<span class="meta-nav">→</span></a>
+                    </div>
+                {% endif %}
+                </p>
+            </div>
+
+                <section class="comment-area" id="comment-area">
+                    <hr>
+                    <h3>发表评论</h3>
+                    <form action="#" method="post" class="comment-form">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="id_name">名字：</label>
+                                <input type="text" id="id_name" name="name" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="id_email">邮箱：</label>
+                                <input type="email" id="id_email" name="email" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="id_url">网址：</label>
+                                <input type="text" id="id_url" name="url">
+                            </div>
+                            <div class="col-md-12">
+                                <label for="id_comment">评论：</label>
+                                <textarea name="comment" id="id_comment" required></textarea>
+                                <button type="submit" class="comment-btn">发表</button>
+                            </div>
+                        </div>    <!-- row -->
+                    </form>
+                    <div class="comment-list-panel">
+                        <h3>评论列表，共 <span>4</span> 条评论</h3>
+                        <ul class="comment-list list-unstyled">
+                            <li class="comment-item">
+                                <span class="nickname">追梦人物</span>
+                                <time class="submit-date" datetime="2012-11-09T23:15:57+00:00">2017年3月12日 14:56</time>
+                                <div class="text">
+                                    文章观点又有道理又符合人性，这才是真正为了表达观点而写，不是为了迎合某某知名人士粉丝而写。我觉得如果琼瑶是前妻，生了三孩子后被一不知名的女人挖了墙角，我不信谁会说那个女人是追求真爱，说同情琼瑶骂小三的女人都是弱者。
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+</main>
+{% endblock %}

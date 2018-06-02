@@ -1,0 +1,54 @@
+{% extends "base2.html" %}
+{% load mytags %}
+
+{% block title %}碎碎念{% endblock %}
+
+{% block search %}
+<a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>
+<div id="search-form" class="search-form">
+	<form role="search" method="get" id="searchform" action="{% url 'blog:blah_search'%}">
+		{% csrf_token %}
+		<input type="search" placeholder="搜索碎碎念" name="s" required>
+		<button type="submit"><span class="ion-ios-search-strong"></span></button>
+	</form>
+</div>
+{% endblock %}
+
+{% block content %}
+<main class="col-md-8">
+    {% for blah in blahs %}
+        <article class="post post-1">
+            <header class="entry-header">
+                <div class="entry-meta">
+                    <span class="post-category"><a>{{ blah.tag }}</a></span>
+                    <span class="post-date"><a href="#"><time class="entry-date"
+                                                    datetime="2012-11-09T23:15:57+00:00">{{ blah.create_time }}</time></a></span>
+                    <span class="post-author"><a href="#">{{ blah.author }}</a></span>
+                    <span class="comments-link"><a href="#">4 评论</a></span>
+                    <span class="views-count"><a href="#">{{ blah.get_read_num }}阅读</a></span>
+                </div>
+            </header>
+            <div class="entry-content clearfix">
+                <p><a href="{% url 'blog:blah_detail' blah.id %}">{{ blah.content | safe }}</a></p>
+            </div>
+        </article>
+    <hr/>
+    {% endfor %}
+    <div class="pagination">
+        <ul>
+            {% if blah.has_previous %}
+            <li><a href="?p={{ articles.previous_page_number }}">Previous</a></li>
+            {% endif %}
+
+            {% for page in pages.page_range %}
+            <li><a href="?p={{ page }}">{{ page }}</a></li>
+            {% endfor %}
+
+            {% if blah.has_next %}
+            <li><a href="?p={{ articles.next_page_number }}">Next</a>
+            {% endif %}
+                        <!--li class="current"><a href="">6</a></li-->
+        </ul>
+    </div>
+</main>
+{% endblock %}

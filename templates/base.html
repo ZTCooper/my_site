@@ -26,7 +26,7 @@
         <div class="row">
             <div class="col-md-4 col-sm-5 col-xs-8">
                 <div class="logo">
-                    <h1><a href="/blog/">ZT COOPER</a></h1>
+                    <h1><a href="{% url 'blog:main_page' %}">ZT COOPER</a></h1>
                 </div>
             </div><!-- col-md-4 -->
             <div class="col-md-8 col-sm-7 col-xs-4">
@@ -39,22 +39,17 @@
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="cl-effect-11"><a href="/blog/" data-hover="首页">首页</a></li>
+                            <li class="cl-effect-11"><a href="{% url 'blog:main_page' %}" data-hover="首页">首页</a></li>
                             <li class="cl-effect-11"><a href="{% url 'blog:blog_list' %}" data-hover="博客">博客</a></li>
-                            <li class="cl-effect-11"><a href="{% url 'blog:about_me' %}" data-hover="关于">关于</a></li>
+                            <li class="cl-effect-11"><a href="{% url 'blog:blah_list' %}" data-hover="碎碎念">碎碎念</a></li>
+                            <li class="cl-effect-11"><a href="{% url 'blog:about_me' %}" data-hover="关于我">关于我</a></li>
                             <li class="cl-effect-11"><a href="contact.html" data-hover="联系">联系</a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </nav>
                 <div id="header-search-box">
-                    <a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>
-                    <div id="search-form" class="search-form">
-                        <form role="search" method="get" id="searchform" action="{% url 'blog:blog_search'%}">
-                            {% csrf_token %}
-                            <input type="search" placeholder="搜索" name="s" required>
-                            <button type="submit"><span class="ion-ios-search-strong"></span></button>
-                        </form>
-                    </div>
+                    {% block search %}
+                    {% endblock %}
                 </div>
             </div><!-- col-md-8 -->
         </div>
@@ -75,10 +70,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <p class="copyright">&copy 2017 - 采集自<a href="http://www.cssmoban.com/"
-                                                        target="_blank" title="模板之家">模板之家</a>
-                    - 由<a href="http://zmrenwu.com/" title="网页模板" target="_blank">追梦人物的博客</a>修改
-                </p>
+                <p class="copyright">&copy 2018 - 本站由 ZT Cooper 使用 Django1.11 搭建</p>
             </div>
         </div>
     </div>

@@ -9,9 +9,12 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'content', 'create_time')
+    list_display = ('title', 'get_read_num' , 'content', 'create_time', 'update_time')
     list_filter = ('create_time',)
 
+class BlahBlahAdmin(admin.ModelAdmin):
+    list_display = ('content', 'get_read_num', 'create_time', 'update_time')
+    list_filter = ('create_time',)
 
 class UserProfileAdmin(admin.ModelAdmin):
     # 显示用户字段
@@ -43,6 +46,7 @@ class BlogImageAdmin(admin.ModelAdmin):
 # Register your models here.
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Article, ArticleAdmin)
+admin.site.register(BlahBlah, BlahBlahAdmin)
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(SiteInfo, SiteInfoAdmin)
 admin.site.register(BlogImage, BlogImageAdmin)

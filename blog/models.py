@@ -1,7 +1,8 @@
 from django.db import models
-# 扩展User表
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser     # 扩展User表
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.conf import settings
+from read_num.models import ReadNumExpandMethod
 
 
 # Create your models here
@@ -16,7 +17,7 @@ class UserProfile(AbstractUser):
     mobile = models.CharField(max_length=11, null=True,
                               blank=True, verbose_name='电话号码')
     address = models.CharField(max_length=200, verbose_name='用户地址', default='')
-    detail = models.CharField(max_length=200, verbose_name='个人简介', default='')
+    detail = RichTextUploadingField(verbose_name='个人简介', default='')
     email = models.EmailField()
     REQUIRED_FIELDS = ['email']
 
@@ -33,7 +34,6 @@ class UserProfile(AbstractUser):
 	    3.admin.py 中注册用户表 admin.site.register(UserProfile)
 	    4. 如果之前先生成了数据库表，之后修改的user要重新生成表，最好先清空数据库。
 	"""
-
 
 # 文章分类
 class Category(models.Model):
@@ -61,17 +61,17 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
-
 # 文章详情
-class Article(models.Model):
+class Article(models.Model, ReadNumExpandMethod):
     title = models.CharField(max_length=50, verbose_name='文章标题', default='')
-    content = models.TextField(verbose_name='文章正文', default='')
+    content = RichTextUploadingField(verbose_name='文章正文', default='')
     category = models.ForeignKey(Category, verbose_name='所属分类', default='')
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              verbose_name='文章作者', null=True, blank=True)
     create_time = models.DateTimeField(
         verbose_name='文章创建时间', auto_now_add=True)
     update_time = models.DateTimeField(verbose_name=u'文章更新时间', auto_now=True)
+    tag = models.CharField(max_length=50, verbose_name=u'日志标签', default='', blank=True)
 
     class Meta:
         verbose_name = '博客文章'
@@ -80,6 +80,22 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
+#碎碎念
+class BlahBlah(models.Model, ReadNumExpandMethod):
+    content = RichTextUploadingField(verbose_name=u'内容', default='')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             verbose_name='作者', null=True, blank=True)
+    create_time = models.DateTimeField(
+        verbose_name=u'创建时间', auto_now_add=True)
+    update_time = models.DateTimeField(verbose_name=u'更新时间', auto_now=True)
+    tag = models.CharField(max_length=50, verbose_name=u'标签', default='', blank=True)
+
+    class Meta:
+        verbose_name = '碎碎念'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.content
 
 class SiteInfo(models.Model):
     site_name = models.CharField(max_length=20, verbose_name='站点名称')

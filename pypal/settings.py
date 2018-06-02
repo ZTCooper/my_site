@@ -36,8 +36,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',
     'pagedown',
+    'ckeditor',
+    'ckeditor_uploader',
+    'blog',
+    'read_num',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +56,7 @@ MIDDLEWARE = [
 # 上传文件目录
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR + '/media')
+CKEDITOR_UPLOAD_PATH = "article_images"
 
 ROOT_URLCONF = 'pypal.urls'
 
@@ -72,6 +76,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'blog.blog_context.blog_info',
+                'blog.blog_context.blog_tag_info',
+                'blog.blog_context.blah_tag_info',
             ],
 
             'libraries':{
@@ -122,7 +128,7 @@ AUTH_USER_MODEL = "blog.UserProfile"
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'zh-Hans'
+LANGUAGE_CODE = 'zh-hans'
 
 TIME_ZONE = 'Asia/Shanghai'
 

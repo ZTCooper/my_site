@@ -4,11 +4,13 @@ from .views import *
 
 urlpatterns = [
     url(r'^$', main_page, name='main_page'),
-    url(r'^(?P<blogpost_id>\d+)$', blog_page, name='blog_page'),
-    #url(r'^edit/(?P<blogpost_id>\d+)$', edit_page, name='edit_page'),
-    #url(r'^edit/post$', post_blog, name='post_blog'),
+    url(r'^blog/(?P<blogpost_id>\d+)$', blog_page, name='blog_page'),
     url(r'^aboutme$', about_me, name='about_me'),
     url(r'^date/(?P<year>\d+)/(?P<month>\d+)$', blog_monthly, name='blog_monthly'),
     url(r'^list$', blog_list, name='blog_list'),
-    url(r'^search$', blog_search, name='blog_search'),
+    url(r'^blog/search$', blog_search, name='blog_search'),
+
+    url(r'^blah$', blah_list, name='blah_list'),
+    url(r'^blah/(?P<blah_id>\d+)$', blah_detail, name='blah_detail'),
+    url(r'^blah/search$', blah_search, name='blah_search'),
 ]
