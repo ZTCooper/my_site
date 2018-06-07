@@ -9,12 +9,26 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'get_read_num' , 'content', 'create_time', 'update_time')
+    list_display = ('title', 'get_read_num' , 'short_content', 'create_time', 'update_time')
+    list_per_page = 10
     list_filter = ('create_time',)
 
+    def short_content(self, obj):
+        return obj.content[:50]
+
+    short_content.short_description = u'博客内容'
+    Article.get_read_num.short_description = u'阅读量'
+
 class BlahBlahAdmin(admin.ModelAdmin):
-    list_display = ('content', 'get_read_num', 'create_time', 'update_time')
+    list_display = ('short_content', 'get_read_num', 'create_time', 'update_time')
+    list_per_page = 10
     list_filter = ('create_time',)
+
+    def short_content(self, obj):
+        return obj.content[:50]
+
+    short_content.short_description = u'内容'
+    BlahBlah.get_read_num.short_description = u'阅读量'
 
 class UserProfileAdmin(admin.ModelAdmin):
     # 显示用户字段

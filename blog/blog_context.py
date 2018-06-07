@@ -9,8 +9,7 @@ def blog_info(request):
     arts = Article.objects.all().order_by('-create_time')
     dates = Article.objects.dates('create_time', 'month', order='DESC')
     blahblahs = BlahBlah.objects.all().order_by('-create_time')
-    return {'siteinfo':siteinfo, 'categories':categories, 'arts':arts[:5], 'dates': dates, 'blahblahs': blahblahs}
-
+    return {'siteinfo':siteinfo, 'categories':categories, 'arts':arts[:5], 'dates': dates, 'blahblahs': blahblahs[:5]}
 
 # 标签信息
 def blog_tag_info(request):
