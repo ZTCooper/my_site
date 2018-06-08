@@ -3,10 +3,6 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from read_num.utils import read_increase
-from django.contrib.contenttypes.models import ContentType
-from django.http import HttpResponseRedirect
-from read_num.models import ReadNum
-from blog.models import *
 from blog.forms import *
 
 

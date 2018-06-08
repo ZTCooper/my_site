@@ -18,6 +18,7 @@ from django.conf.urls import url, include
 from django.views.static import serve
 from django.conf import settings
 from django.conf.urls.static import static
+from .views import *
 
 
 urlpatterns = [
@@ -25,6 +26,7 @@ urlpatterns = [
     url(r'', include('blog.urls', namespace='blog')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^media/(?P<path>.*)', serve, {"document_root": settings.MEDIA_ROOT}, name='media'),
+    url(r'^login/', login, name='login'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

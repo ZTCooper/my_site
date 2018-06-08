@@ -4,10 +4,11 @@ from blog.models import *
 from blog.forms import *
 
 
+@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('title',)
 
-
+@admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ('title', 'get_read_num' , 'short_content', 'create_time', 'update_time')
     list_per_page = 10
@@ -19,6 +20,7 @@ class ArticleAdmin(admin.ModelAdmin):
     short_content.short_description = u'博客内容'
     Article.get_read_num.short_description = u'阅读量'
 
+@admin.register(BlahBlah)
 class BlahBlahAdmin(admin.ModelAdmin):
     list_display = ('short_content', 'get_read_num', 'create_time', 'update_time')
     list_per_page = 10
@@ -30,6 +32,7 @@ class BlahBlahAdmin(admin.ModelAdmin):
     short_content.short_description = u'内容'
     BlahBlah.get_read_num.short_description = u'阅读量'
 
+@admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
     # 显示用户字段
     list_display = ('username', 'nick_name', 'email',
@@ -39,10 +42,11 @@ class UserProfileAdmin(admin.ModelAdmin):
     # 搜索
     search_fields = ('username', 'nick_name', 'email')
 
-
+@admin.register(SiteInfo)
 class SiteInfoAdmin(admin.ModelAdmin):
     list_display = ('site_name', 'site_detail', 'site_user')
 
+@admin.register(BlogImage)
 class BlogImageAdmin(admin.ModelAdmin):
     list_display = ('title', 'image_url', 'image_data')
     readonly_fields = ('image_url', 'image_data')   # 自定义字段属性
@@ -54,13 +58,3 @@ class BlogImageAdmin(admin.ModelAdmin):
         return mark_safe('<img src="%s" width="100px" />' % obj.path.url)
     image_data.short_description = u'图片'
     image_url.short_description = u'图片地址'
-
-
-
-# Register your models here.
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(Article, ArticleAdmin)
-admin.site.register(BlahBlah, BlahBlahAdmin)
-admin.site.register(UserProfile, UserProfileAdmin)
-admin.site.register(SiteInfo, SiteInfoAdmin)
-admin.site.register(BlogImage, BlogImageAdmin)
